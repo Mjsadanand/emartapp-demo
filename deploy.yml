@@ -1,0 +1,21 @@
+name: Run Docker Compose on EC2
+
+on:
+  workflow_dispatch:  # allows manual trigger
+
+jobs:
+  docker-up:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: SSH & Run Docker Compose
+        uses: appleboy/ssh-action@v0.1.8
+        with:
+          host: ${{ secrets.EC2_HOST }}      # EC2 public IP
+          username: ${{ secrets.EC2_USER }}  # 'ubuntu'
+          key: ${{ secrets.EC2_KEY }}        # private SSH key
+          port: 22
+          script: |
+            cd /home/ubuntu/emartapp
+            docker-compose build -d
+            docker-compose up -d
