@@ -16,6 +16,6 @@ jobs:
           key: ${{ secrets.EC2_KEY }}        # private SSH key
           port: 22
           script: |
-            cd /home/ubuntu/emartapp
+            cd /home/ubuntu/emartapp-demo
             docker-compose build -d
             docker-compose up -d
